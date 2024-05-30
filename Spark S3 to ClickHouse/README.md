@@ -12,13 +12,14 @@
 - *color*	цвет
 - *transmission*	коробка передач
 - *body*	тип кузова авто
-- *country*	страна
+- *country*	страна <br>
 **live_adverts** – данные с текущими объявлениями:
 - *execution_date*	дата, на которую была выгрузка по объявлениям live
 - *advert_id*	id объявления
 - *region*	регион объявления
 - *user_id*	глобальный ID пользователя (ссылка на user_passports.global_id))
-- *platform*	платформа подачи
+- *platform*	платформа подачи <br>
 **user_passports** – данные с характеристиками пользователей:
 - *global_id*	глобальный ID пользователя
 - *user_type_name*	тип пользователя
+#### Вопросы бизнес кейса в jupyter блокноте ###
