@@ -1,3 +1,5 @@
 ## ClickHouse related projects ##
-1. Practice
-2. ...
+1. Spark S3 + Clickhouse mini project
+2. Clickhouse table optimization miniproject
+3. Practice
+   
