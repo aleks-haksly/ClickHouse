@@ -73,3 +73,30 @@ arrayReduce('avg', amount_array) as avgg,
 arrayReduce('sumIf', amount_array, condition_array) as summ
 
 ```
+```sql
+
+WITH last_date AS (SELECT CAST(max(time) AS date) AS last_dt FROM feed_actions_all)
+
+
+SELECT
+	p.user_id,
+	p.purchases,
+	arrayEnumerate(events) AS events_indexes,
+	a.events,
+	arrayMap(i -> IF(i != events_indexes[-1] AND abs(dateDiff('second', events[i].1, events[i+1].1)) <= 1800,
+	                      abs(dateDiff('second', events[i].1, events[i+1].1)),
+	                      1801), events_indexes) AS events_duration
+FROM (
+SELECT 
+user_id, arraySort(x -> x.1, groupArray(tuple(created_at, total_sum))) AS purchases
+FROM karpovexpress_orders ko
+WHERE CAST(created_at AS date) >= (SELECT last_dt - 14 FROM last_date)
+GROUP BY user_id ) p
+ANY INNER JOIN (
+SELECT 
+user_id, arraySort(x -> x.1, groupArray(tuple(CAST(`time` AS datetime), `source`))) AS events
+FROM feed_actions_all faa 
+WHERE CAST("time" AS date) >= (SELECT last_dt - 14 FROM last_date)
+GROUP BY user_id ) a
+USING user_id
+```
