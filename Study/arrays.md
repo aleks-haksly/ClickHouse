@@ -1,4 +1,5 @@
-## Массивы в ClickHouse
+## Массивы в ClickHouse 
+[examples](https://www.youtube.com/watch?v=QH44jyu3UFI&t=10s)
 
 1. Создание массива (ручное)
 ```sql
